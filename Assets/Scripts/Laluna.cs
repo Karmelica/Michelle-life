@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -7,6 +5,7 @@ using UnityEngine.UI;
 public class Laluna : MonoBehaviour
 {
     [Header("Components")]
+    public Rigidbody rb;
     public Animator animator;
     public Image imgGuitar;
     public Image imgPills;
@@ -24,76 +23,56 @@ public class Laluna : MonoBehaviour
     private bool isWorking;
     private float guitarCd = 0;
     private float pillsCd = 0;
-    private float danceCd = 0;
+    private readonly float danceCd = 1;
     private float phoneCd = 0;
+    private Image currentNeed;
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Guitar"))
         {
-            if(imgGuitar.fillAmount < 0.99f)
-            {
-                isWorking = true;
-                imgGuitar.fillAmount += Time.deltaTime * 0.25f;
-                animator.SetTrigger("Guitar");
-            }
-            else
-            {
-                guitarCd = 5f;
-                isWorking = false;
-            }
+            isWorking = true;
+            currentNeed = imgGuitar;
+            animator.SetTrigger("Guitar");
+            guitarCd = 5f + 3.8f;
         }
         if (other.CompareTag("Pills"))
         {
-            if(imgPills.fillAmount < 0.99f)
-            {
-                isWorking = true;
-                imgPills.fillAmount += Time.deltaTime;
-                animator.SetTrigger("Pills");
-            }
-            else
-            {
-                pillsCd = 5f;
-                isWorking = false;
-            }
+            isWorking = true;
+            currentNeed = imgPills;
+            animator.SetTrigger("Pills");
+            pillsCd = 10f + 2.3f;
+            imgDance.fillAmount -= 0.21f;
+
         }
         if (other.CompareTag("Dance"))
         {
-            if (imgDance.fillAmount < 0.99f)
-            {
-                isWorking = true;
-                imgDance.fillAmount += Time.deltaTime * 0.2f;
-                animator.SetTrigger("Dance");
-            }
-            else
-            {
-                danceCd = 5f;
-                isWorking = false;
-            }
+            isWorking = true;
+            currentNeed = imgDance;
+            animator.SetTrigger("Dance");
         }
         if (other.CompareTag("Phone"))
         {
-            if (imgPhone.fillAmount < 0.99f)
-            {
-                isWorking = true;
-                imgPhone.fillAmount += Time.deltaTime * 0.02f;
-                animator.SetTrigger("Phone");
-            }
-            else
-            {
-                phoneCd = 5f;
-                isWorking = false;
-            }
+            isWorking = true;
+            currentNeed = imgPhone;
+            animator.SetTrigger("Phone");
+            phoneCd = 5f + 21f;
         }
+    }
+
+    public void ChangeBool()
+    {
+        currentNeed.fillAmount = 1f;
+        isWorking = false;
     }
 
     public void Bar(Image bar, float ratio, Transform tr, float cd)
     {
-        if(bar.fillAmount > 0.05 && !isWorking && cd < 0)
+        if (bar.fillAmount > 0.05 && cd < 0)
         {
             bar.fillAmount -= Time.deltaTime * 0.05f / ratio;
         }
-        if(bar.fillAmount < 0.33)
+        if (bar.fillAmount < 0.33)
         {
             Destination(tr);
         }
@@ -103,7 +82,7 @@ public class Laluna : MonoBehaviour
     {
         Vector3 distance = transformNeed.position - transform.position;
 
-        Debug.Log(distance.magnitude);
+        //Debug.Log(distance.magnitude);
 
         if (!isWorking)
         {
@@ -111,14 +90,12 @@ public class Laluna : MonoBehaviour
             {
                 meshAgent.SetDestination(transformNeed.position);
                 meshAgent.isStopped = false;
-                animator.SetBool("isStopped", false);
             }
         }
         else
         {
             meshAgent.isStopped = true;
             meshAgent.ResetPath();
-            animator.SetBool("isStopped", true);
         }
     }
 
@@ -129,14 +106,25 @@ public class Laluna : MonoBehaviour
 
     void Update()
     {
+
+        if (!isWorking && !meshAgent.hasPath)
+        {
+            meshAgent.SetDestination(Vector3.zero);
+        }
+
+        animator.SetFloat("Vel", meshAgent.velocity.magnitude);
+
+        //Debug.Log(meshAgent.velocity.magnitude);
+
         Bar(imgGuitar, 1, trGuitar, guitarCd);
-        Bar(imgPills, 5, trPills, pillsCd);
+        Bar(imgPills, 3, trPills, pillsCd);
         Bar(imgDance, 15, trDance, danceCd);
         Bar(imgPhone, 20, trPhone, phoneCd);
 
         phoneCd -= Time.deltaTime;
         guitarCd -= Time.deltaTime;
-        danceCd -= Time.deltaTime;
         pillsCd -= Time.deltaTime;
+
+        //Debug.Log(meshAgent.destination);
     }
 }
