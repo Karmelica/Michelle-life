@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -11,62 +14,70 @@ public class Laluna : MonoBehaviour
     public Image imgPills;
     public Image imgDance;
     public Image imgPhone;
-
+    public TextMeshProUGUI queueText;
+    public TextMeshProUGUI queueObjective;
 
     [Header("Objects")]
-    public Transform trGuitar;
-    public Transform trPills;
-    public Transform trDance;
-    public Transform trPhone;
+    public GameObject trGuitar;
+    public GameObject trPills;
+    public GameObject trDance;
+    public GameObject trPhone;
+    public GameObject zero;
 
     private NavMeshAgent meshAgent;
-    private bool isWorking;
+    [SerializeField] private bool isWorking;
     private float guitarCd = 0;
     private float pillsCd = 0;
     private readonly float danceCd = 1;
     private float phoneCd = 0;
-    private Image currentNeed;
+
+    private readonly Queue<GameObject> positionQueue = new();
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Guitar"))
         {
             isWorking = true;
-            currentNeed = imgGuitar;
+            StartCoroutine(Refill(imgGuitar, guitarCd = 5f + 3.8f));
             animator.SetTrigger("Guitar");
-            guitarCd = 5f + 3.8f;
         }
         if (other.CompareTag("Pills"))
         {
             isWorking = true;
-            currentNeed = imgPills;
-            animator.SetTrigger("Pills");
-            pillsCd = 10f + 2.3f;
+            StartCoroutine(Refill(imgPills, pillsCd = 10f + 2.3f));
             imgDance.fillAmount -= 0.21f;
+            animator.SetTrigger("Pills");
 
         }
         if (other.CompareTag("Dance"))
         {
             isWorking = true;
-            currentNeed = imgDance;
+            StartCoroutine(Refill(imgDance, 5));
             animator.SetTrigger("Dance");
         }
         if (other.CompareTag("Phone"))
         {
             isWorking = true;
-            currentNeed = imgPhone;
+            StartCoroutine(Refill(imgPhone, phoneCd = 5f + 21f));
             animator.SetTrigger("Phone");
-            phoneCd = 5f + 21f;
         }
     }
 
     public void ChangeBool()
     {
-        currentNeed.fillAmount = 1f;
         isWorking = false;
     }
 
-    public void Bar(Image bar, float ratio, Transform tr, float cd)
+    public IEnumerator Refill(Image need, float cd)
+    {
+        while (need.fillAmount < 1f && isWorking)
+        {
+            yield return new WaitForFixedUpdate();
+            need.fillAmount += 0.01f / cd * 5f;
+        }
+    }
+
+    public void Bar(Image bar, float ratio, GameObject newNeed, float cd)
     {
         if (bar.fillAmount > 0.05 && cd < 0)
         {
@@ -74,28 +85,25 @@ public class Laluna : MonoBehaviour
         }
         if (bar.fillAmount < 0.33)
         {
-            Destination(tr);
+            AddDestiToQueue(newNeed);
         }
     }
 
-    public void Destination(Transform transformNeed)
+    public void AddDestiToQueue(GameObject nextDest)
     {
-        Vector3 distance = transformNeed.position - transform.position;
-
-        //Debug.Log(distance.magnitude);
-
-        if (!isWorking)
+        if(!positionQueue.Contains(nextDest))
         {
-            if (distance.magnitude > 1f)
-            {
-                meshAgent.SetDestination(transformNeed.position);
-                meshAgent.isStopped = false;
-            }
+            positionQueue.Enqueue(nextDest);
+            UpdateQueueText();
         }
-        else
-        {
-            meshAgent.isStopped = true;
-            meshAgent.ResetPath();
+    }
+
+    private void UpdateQueueText()
+    {
+        queueText.text = string.Empty;
+
+        foreach(GameObject gamObj in positionQueue) {
+            queueText.text += gamObj.name + ", ";
         }
     }
 
@@ -106,10 +114,23 @@ public class Laluna : MonoBehaviour
 
     void Update()
     {
-
-        if (!isWorking && !meshAgent.hasPath)
+        if (!isWorking)
         {
-            meshAgent.SetDestination(Vector3.zero);
+            if (positionQueue.Count == 0)
+            {
+                AddDestiToQueue(zero);
+            }
+
+            if (positionQueue.Count > 0 && !meshAgent.hasPath)
+            {
+                GameObject amogus = positionQueue.Dequeue();
+
+                queueObjective.text = "Current objective: " + amogus.name;
+
+                meshAgent.SetDestination(amogus.transform.position);
+
+                UpdateQueueText();
+            }
         }
 
         animator.SetFloat("Vel", meshAgent.velocity.magnitude);
