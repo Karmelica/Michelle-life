@@ -83,7 +83,7 @@ public class Laluna : MonoBehaviour
         {
             bar.fillAmount -= Time.deltaTime * 0.05f / ratio;
         }
-        if (bar.fillAmount < 0.33)
+        if (Mathf.RoundToInt(bar.fillAmount * 10f) == 0)
         {
             AddDestiToQueue(newNeed);
         }
@@ -91,10 +91,30 @@ public class Laluna : MonoBehaviour
 
     public void AddDestiToQueue(GameObject nextDest)
     {
-        if(!positionQueue.Contains(nextDest))
+        if (!positionQueue.Contains(nextDest))
         {
             positionQueue.Enqueue(nextDest);
             UpdateQueueText();
+        }
+    }
+
+    private void Walking()
+    {
+        if (!isWorking)
+        {
+            if (positionQueue.Count == 0)
+            {
+                AddDestiToQueue(zero);
+            }
+
+            if (positionQueue.Count > 0 && !meshAgent.hasPath)
+            {
+                GameObject amogus = positionQueue.Peek();
+
+                meshAgent.SetDestination(amogus.transform.position);
+
+                UpdateQueueText(positionQueue.Dequeue());
+            }
         }
     }
 
@@ -102,7 +122,19 @@ public class Laluna : MonoBehaviour
     {
         queueText.text = string.Empty;
 
-        foreach(GameObject gamObj in positionQueue) {
+        foreach (GameObject gamObj in positionQueue)
+        {
+            queueText.text += gamObj.name + ", ";
+        }
+    }
+    private void UpdateQueueText(GameObject amogus)
+    {
+        queueText.text = string.Empty;
+
+        //queueObjective.text = "Current objective: " + amogus.name;
+
+        foreach (GameObject gamObj in positionQueue)
+        {
             queueText.text += gamObj.name + ", ";
         }
     }
@@ -114,28 +146,9 @@ public class Laluna : MonoBehaviour
 
     void Update()
     {
-        if (!isWorking)
-        {
-            if (positionQueue.Count == 0)
-            {
-                AddDestiToQueue(zero);
-            }
-
-            if (positionQueue.Count > 0 && !meshAgent.hasPath)
-            {
-                GameObject amogus = positionQueue.Dequeue();
-
-                queueObjective.text = "Current objective: " + amogus.name;
-
-                meshAgent.SetDestination(amogus.transform.position);
-
-                UpdateQueueText();
-            }
-        }
+        Walking();
 
         animator.SetFloat("Vel", meshAgent.velocity.magnitude);
-
-        //Debug.Log(meshAgent.velocity.magnitude);
 
         Bar(imgGuitar, 1, trGuitar, guitarCd);
         Bar(imgPills, 3, trPills, pillsCd);
@@ -148,4 +161,5 @@ public class Laluna : MonoBehaviour
 
         //Debug.Log(meshAgent.destination);
     }
+
 }
