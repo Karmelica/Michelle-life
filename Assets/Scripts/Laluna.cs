@@ -17,6 +17,7 @@ public class Laluna : MonoBehaviour
     public Image imgPhone;
     public TextMeshProUGUI queueText;
     public TextMeshProUGUI queueObjective;
+    public LayerMask ground;
 
     [Header("Objects")]
     public GameObject trGuitar;
@@ -115,7 +116,10 @@ public class Laluna : MonoBehaviour
         {
             if (positionQueue.Count == 0 && !meshAgent.hasPath)
             {
-                meshAgent.ResetPath();
+                if (meshAgent.hasPath)
+                {
+                    meshAgent.ResetPath();
+                }
                 meshAgent.SetDestination(zero.transform.position);
                 
             }
@@ -150,7 +154,7 @@ public class Laluna : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            if (Physics.Raycast(ray, out RaycastHit hit, 1000, ground))
             {
                 Vector3 pos = new(hit.point.x, 1f, hit.point.z);
                 zero.transform.position = pos;
