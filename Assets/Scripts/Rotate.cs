@@ -25,16 +25,19 @@ public class Rotate : MonoBehaviour
 
             transform.Rotate(Vector3.right, mouseY * 5f);
 
+            //float xPos = transform.rotation.x;
             
-            //25, -60
+            //Mathf.Clamp(xPos, -67, 20);
+
+            //transform.rotation = Quaternion.Euler(xPos, transform.rotation.y, transform.rotation.z);
+            //20, -67
         }
 
-        //78, 28
         float zoom = Input.GetAxis("Mouse ScrollWheel") * 20f;
 
         cam.fieldOfView -= zoom;
 
-        cam.fieldOfView = Mathf.Clamp(cam.fieldOfView, 30, 80);
+        cam.fieldOfView = Mathf.Clamp(cam.fieldOfView, 25, 80);
 
 
     }

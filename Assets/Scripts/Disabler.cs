@@ -4,27 +4,27 @@ using UnityEngine;
 
 public class Disabler : MonoBehaviour
 {
-    public MeshRenderer m_MeshRenderer;
+    [SerializeField] private MeshRenderer meshRenderer;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("CameraColi"))
+        if (other.CompareTag("MainCamera"))
         {
-            m_MeshRenderer.enabled = false;
+            meshRenderer.enabled = false;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("CameraColi"))
+        if (other.CompareTag("MainCamera"))
         {
-            m_MeshRenderer.enabled = true;
+            meshRenderer.enabled = true;
         }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        m_MeshRenderer = GetComponent<MeshRenderer>();
+        meshRenderer = GetComponent<MeshRenderer>();
     }
 }
