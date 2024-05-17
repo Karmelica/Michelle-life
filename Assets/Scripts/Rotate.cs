@@ -1,3 +1,4 @@
+using System.Net;
 using UnityEngine;
 
 public class Rotate : MonoBehaviour
@@ -16,6 +17,7 @@ public class Rotate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         transform.position = Michelle.position;
 
         if (Input.GetMouseButton(1))
@@ -25,7 +27,7 @@ public class Rotate : MonoBehaviour
 
             transform.Rotate(Vector3.right, mouseY * 5f);
 
-            //transform.rotation = Quaternion.Euler(Mathf.Clamp(transform.eulerAngles.x, -90f, 90f), transform.eulerAngles.y, transform.eulerAngles.z);
+            //transform.rotation = Quaternion.Euler(Mathf.Clamp(transform.eulerAngles.x, -20f, 60f), transform.eulerAngles.y, transform.eulerAngles.z);
             //20, -67
         }
 
@@ -36,5 +38,15 @@ public class Rotate : MonoBehaviour
         cam.fieldOfView = Mathf.Clamp(cam.fieldOfView, 25, 80);
 
 
+        Ray ray = new Ray(transform.position, transform.forward * -3f);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, 3f))
+        {
+            cam.transform.localPosition = new Vector3(0, 0, -hit.distance);
+        }
+        else
+        {
+            cam.transform.localPosition = new Vector3(0, 0, -3f);
+        }
     }
 }

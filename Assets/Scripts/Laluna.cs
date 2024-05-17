@@ -27,7 +27,7 @@ public class Laluna : MonoBehaviour
     public GameObject zero;
 
     private NavMeshAgent meshAgent;
-    [SerializeField] private bool isWorking;
+    private bool isWorking;
     private float pillsTime;
     private float guitarCd = 0;
     private float pillsCd = 0;
@@ -50,7 +50,7 @@ public class Laluna : MonoBehaviour
         {
             isWorking = true;
             meshAgent.ResetPath();
-            StartCoroutine(Refill(imgPills, pillsCd = 10f + 2.3f));
+            StartCoroutine(Refill(imgPills, pillsCd = 10f + 5f));
             imgDance.fillAmount -= 0.21f;
             animator.SetTrigger("Pills");
             pillsTime = 20f;
