@@ -25,11 +25,7 @@ public class Rotate : MonoBehaviour
 
             transform.Rotate(Vector3.right, mouseY * 5f);
 
-            //float xPos = transform.rotation.x;
-            
-            //Mathf.Clamp(xPos, -67, 20);
-
-            //transform.rotation = Quaternion.Euler(xPos, transform.rotation.y, transform.rotation.z);
+            //transform.rotation = Quaternion.Euler(Mathf.Clamp(transform.eulerAngles.x, -90f, 90f), transform.eulerAngles.y, transform.eulerAngles.z);
             //20, -67
         }
 

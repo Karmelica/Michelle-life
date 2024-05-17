@@ -28,6 +28,7 @@ public class Laluna : MonoBehaviour
 
     private NavMeshAgent meshAgent;
     [SerializeField] private bool isWorking;
+    private float pillsTime;
     private float guitarCd = 0;
     private float pillsCd = 0;
     private float danceCd = 0;
@@ -52,6 +53,8 @@ public class Laluna : MonoBehaviour
             StartCoroutine(Refill(imgPills, pillsCd = 10f + 2.3f));
             imgDance.fillAmount -= 0.21f;
             animator.SetTrigger("Pills");
+            pillsTime = 20f;
+            animator.SetBool("OnPills", true);
 
         }
         if (other.CompareTag("Dance"))
@@ -145,6 +148,7 @@ public class Laluna : MonoBehaviour
 
     void Start()
     {
+        //colli = GetComponent<Collider>();
         meshAgent = GetComponent<NavMeshAgent>();
     }
 
@@ -170,12 +174,16 @@ public class Laluna : MonoBehaviour
         Bar(imgDance, 20, trDance, danceCd, ref needDance);
         Bar(imgPhone, 15, trPhone, phoneCd, ref needPhone);
 
+        pillsTime -= Time.deltaTime;
         phoneCd -= Time.deltaTime;
         guitarCd -= Time.deltaTime;
         pillsCd -= Time.deltaTime;
         danceCd -= Time.deltaTime;
 
-        //Debug.Log(meshAgent.destination);
+        if(pillsTime <= 0)
+        {
+            animator.SetBool("OnPills", false);
+        }
     }
 
 }
