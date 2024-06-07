@@ -41,6 +41,7 @@ public class Laluna : MonoBehaviour
     {
         if (other.CompareTag("Guitar"))
         {
+            other.GetComponent<Collider>().enabled = false;
             isWorking = true;
             meshAgent.ResetPath();
             StartCoroutine(Refill(imgGuitar, guitarCd = 5f + 3.8f));
@@ -48,9 +49,10 @@ public class Laluna : MonoBehaviour
         }
         if (other.CompareTag("Pills"))
         {
+            other.GetComponent<Collider>().enabled = false;
             isWorking = true;
             meshAgent.ResetPath();
-            StartCoroutine(Refill(imgPills, pillsCd = 10f + 5f));
+            StartCoroutine(Refill(imgPills, pillsCd = 5f + 5f));
             imgDance.fillAmount -= 0.21f;
             animator.SetTrigger("Pills");
             pillsTime = 20f;
@@ -59,6 +61,7 @@ public class Laluna : MonoBehaviour
         }
         if (other.CompareTag("Dance"))
         {
+            other.GetComponent<Collider>().enabled = false;
             isWorking = true;
             meshAgent.ResetPath();
             StartCoroutine(Refill(imgDance, 5));
@@ -66,6 +69,7 @@ public class Laluna : MonoBehaviour
         }
         if (other.CompareTag("Phone"))
         {
+            other.GetComponent<Collider>().enabled = false;
             isWorking = true;
             meshAgent.ResetPath();
             StartCoroutine(Refill(imgPhone, phoneCd = 5f + 21f));
@@ -109,6 +113,7 @@ public class Laluna : MonoBehaviour
         {
             need = true;
             positionQueue.Enqueue(nextDest);
+            nextDest.GetComponent<Collider>().enabled = true;
             UpdateQueueText();
         }
     }
@@ -119,6 +124,7 @@ public class Laluna : MonoBehaviour
         {
             if (positionQueue.Count == 0 && !meshAgent.hasPath)
             {
+                queueObjective.text = string.Empty;
                 if (meshAgent.hasPath)
                 {
                     meshAgent.ResetPath();
@@ -128,7 +134,10 @@ public class Laluna : MonoBehaviour
             }
             if (positionQueue.Count > 0 && !meshAgent.hasPath)
             {
-                meshAgent.SetDestination(positionQueue.Dequeue().transform.position);
+                GameObject next = positionQueue.Dequeue();
+                queueObjective.text = string.Empty;
+                queueObjective.text = "Gonna " + next.name;
+                meshAgent.SetDestination(next.transform.position);
 
                 UpdateQueueText();
             }
@@ -141,7 +150,7 @@ public class Laluna : MonoBehaviour
 
         foreach (GameObject gamObj in positionQueue)
         {
-            queueText.text += gamObj.name + ", ";
+            queueText.text += "I need to " + gamObj.name + "\n";
         }
 
     }
