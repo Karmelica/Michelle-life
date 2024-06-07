@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 public class Laluna : MonoBehaviour
 {
     [Header("Components")]
+    public Volume volume;
     public Camera cam;
     public Rigidbody rb;
     public Animator animator;
@@ -159,6 +162,7 @@ public class Laluna : MonoBehaviour
     {
         //colli = GetComponent<Collider>();
         meshAgent = GetComponent<NavMeshAgent>();
+
     }
 
     void Update()
@@ -182,6 +186,15 @@ public class Laluna : MonoBehaviour
         Bar(imgPills, 3, trPills, pillsCd, ref needPills);
         Bar(imgDance, 20, trDance, danceCd, ref needDance);
         Bar(imgPhone, 15, trPhone, phoneCd, ref needPhone);
+
+        if(pillsTime > 0)
+        {
+            volume.enabled = true;
+        }
+        else
+        {
+            volume.enabled = false;
+        }
 
         pillsTime -= Time.deltaTime;
         phoneCd -= Time.deltaTime;
