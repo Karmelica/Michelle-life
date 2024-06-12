@@ -45,6 +45,7 @@ public class Laluna : MonoBehaviour
         if (other.CompareTag("Guitar"))
         {
             other.GetComponent<Collider>().enabled = false;
+            transform.LookAt(trGuitar.transform.position);
             isWorking = true;
             meshAgent.ResetPath();
             StartCoroutine(Refill(imgGuitar, guitarCd = 5f + 3.8f));
@@ -53,6 +54,7 @@ public class Laluna : MonoBehaviour
         if (other.CompareTag("Pills"))
         {
             other.GetComponent<Collider>().enabled = false;
+            transform.LookAt(trPills.transform.position);
             isWorking = true;
             meshAgent.ResetPath();
             StartCoroutine(Refill(imgPills, pillsCd = 5f + 5f));
@@ -65,6 +67,7 @@ public class Laluna : MonoBehaviour
         if (other.CompareTag("Dance"))
         {
             other.GetComponent<Collider>().enabled = false;
+            transform.LookAt(trDance.transform.position);
             isWorking = true;
             meshAgent.ResetPath();
             StartCoroutine(Refill(imgDance, 5));
@@ -73,6 +76,7 @@ public class Laluna : MonoBehaviour
         if (other.CompareTag("Phone"))
         {
             other.GetComponent<Collider>().enabled = false;
+            transform.LookAt(trPhone.transform.position);
             isWorking = true;
             meshAgent.ResetPath();
             StartCoroutine(Refill(imgPhone, phoneCd = 5f + 21f));
