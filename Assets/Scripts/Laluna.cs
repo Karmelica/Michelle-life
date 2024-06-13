@@ -10,6 +10,7 @@ using UnityEngine.UI;
 public class Laluna : MonoBehaviour
 {
     [Header("Components")]
+    public AudioSource guitar;
     public Volume volume;
     public Camera cam;
     public Rigidbody rb;
@@ -44,6 +45,7 @@ public class Laluna : MonoBehaviour
     {
         if (other.CompareTag("Guitar"))
         {
+            guitar.Play();
             other.GetComponent<Collider>().enabled = false;
             transform.LookAt(trGuitar.transform.position);
             isWorking = true;

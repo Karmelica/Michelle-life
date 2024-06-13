@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44035965, g: 0.48893523, b: 0.56910115, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -185,7 +185,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0.132
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -1560,9 +1560,9 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: -7513297493162946847, guid: cc4fd23acf31a8e45ac683ddd69f4c36, type: 3}
+  m_Mesh: {fileID: -7513297493162946847, guid: 4955a756a68c8f6489501c6a044ae211, type: 3}
 --- !u!114 &827812444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1848,7 +1848,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0.132
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -2462,6 +2462,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1352533947}
   - component: {fileID: 1352533946}
+  - component: {fileID: 1352533948}
   m_Layer: 2
   m_Name: make disstrack on fellow DJ!
   m_TagString: Guitar
@@ -2505,6 +2506,102 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!82 &1352533948
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1352533945}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 30b99b43c7573ef429b2a55848c5d5c6, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.492
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1371858335
 GameObject:
   m_ObjectHideFlags: 0
@@ -2567,7 +2664,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0.132
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -2812,7 +2909,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0.132
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -3515,6 +3612,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d543401ac290e744af68102e05414a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  guitar: {fileID: 1352533948}
   volume: {fileID: 86226515}
   cam: {fileID: 963194227}
   rb: {fileID: 919132148384154312}
@@ -5265,7 +5363,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: -1962800683429938575, guid: cc4fd23acf31a8e45ac683ddd69f4c36, type: 3}
+  m_Mesh: {fileID: -1962800683429938575, guid: 4955a756a68c8f6489501c6a044ae211, type: 3}
 --- !u!4 &5901452234488613630
 Transform:
   m_ObjectHideFlags: 0
@@ -5414,7 +5512,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: -6255727006846641396, guid: cc4fd23acf31a8e45ac683ddd69f4c36, type: 3}
+  m_Mesh: {fileID: -6255727006846641396, guid: 4955a756a68c8f6489501c6a044ae211, type: 3}
 --- !u!4 &6452705233721380664
 Transform:
   m_ObjectHideFlags: 0
@@ -5504,7 +5602,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1124310097919728581, guid: cc4fd23acf31a8e45ac683ddd69f4c36, type: 3}
+  m_Mesh: {fileID: 1124310097919728581, guid: 4955a756a68c8f6489501c6a044ae211, type: 3}
 --- !u!4 &6629111070972325833
 Transform:
   m_ObjectHideFlags: 0
@@ -5574,7 +5672,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 5779197439840542771, guid: cc4fd23acf31a8e45ac683ddd69f4c36, type: 3}
+  m_Mesh: {fileID: 5779197439840542771, guid: 4955a756a68c8f6489501c6a044ae211, type: 3}
 --- !u!4 &7078722786130806283
 Transform:
   m_ObjectHideFlags: 0
@@ -5644,7 +5742,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 5129110042813977296, guid: cc4fd23acf31a8e45ac683ddd69f4c36, type: 3}
+  m_Mesh: {fileID: 5129110042813977296, guid: 4955a756a68c8f6489501c6a044ae211, type: 3}
 --- !u!4 &7358631409029161389
 Transform:
   m_ObjectHideFlags: 0
@@ -5826,7 +5924,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 3335724914305450694, guid: cc4fd23acf31a8e45ac683ddd69f4c36, type: 3}
+  m_Mesh: {fileID: 3335724914305450694, guid: 4955a756a68c8f6489501c6a044ae211, type: 3}
 --- !u!4 &7930214442899152459
 Transform:
   m_ObjectHideFlags: 0
@@ -6068,7 +6166,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: -6471709431351119579, guid: cc4fd23acf31a8e45ac683ddd69f4c36, type: 3}
+  m_Mesh: {fileID: -6471709431351119579, guid: 4955a756a68c8f6489501c6a044ae211, type: 3}
 --- !u!1 &8670540288172921529
 GameObject:
   m_ObjectHideFlags: 0
@@ -6127,7 +6225,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: -5358279649305207039, guid: cc4fd23acf31a8e45ac683ddd69f4c36, type: 3}
+  m_Mesh: {fileID: -5358279649305207039, guid: 4955a756a68c8f6489501c6a044ae211, type: 3}
 --- !u!1 &8817898886881446421
 GameObject:
   m_ObjectHideFlags: 0
@@ -6305,7 +6403,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: -7988800832230372539, guid: cc4fd23acf31a8e45ac683ddd69f4c36, type: 3}
+  m_Mesh: {fileID: -7988800832230372539, guid: 4955a756a68c8f6489501c6a044ae211, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
